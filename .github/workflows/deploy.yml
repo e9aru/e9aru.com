@@ -18,7 +18,7 @@ jobs:
           HOST=${{ secrets.FTP_HOST }}
           USER=${{ secrets.FTP_USER }}
           PASS=${{ secrets.FTP_PASSWORD }}
-          ftp -inv $HOST << EOF
+          sftp -inv $HOST << EOF
           user $USER $PASS
           cd testftp
           mput *
