@@ -17,9 +17,9 @@ jobs:
 
     - name: SCP
       run: |
-        HOST=${{ secret.FTP_HOST }}
-        USER=${{ secret.FTP_USER }}
-        PASS=${{ secret.FTP_PASSWORD }}
+        HOST=${{ secrets.FTP_HOST }}
+        USER=${{ secrets.FTP_USER }}
+        PASS=${{ secrets.FTP_PASSWORD }}
         ftp -inv $HOST << EOF
         user $USER $PASS
         cd /testftp
