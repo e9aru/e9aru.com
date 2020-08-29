@@ -1,0 +1,29 @@
+name: Deploy to Mydevil
+
+on:
+  push:
+    branches: [ master ]
+  pull_request:
+    branches: [ master ]
+    
+
+jobs:
+  build:
+
+    runs-on: ubuntu-latest
+
+    steps:
+    - uses: actions/checkout@v2
+
+    - name: SCP
+      run: |
+        HOST=${{ secret.FTP_HOST }}
+        USER=${{ secret.FTP_USER }}
+        PASS=${{ secret.FTP_PASSWORD }}
+        ftp -inv $HOST << EOF
+        user $USER $PASS
+        cd /testftp
+        put *
+        bye
+
+        EOF
