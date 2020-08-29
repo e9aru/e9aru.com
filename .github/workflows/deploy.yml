@@ -7,7 +7,7 @@ on:
     branches: [master]
 
 jobs:
-  sftp:
+  ftp:
     runs-on: ubuntu-latest
 
     steps:
@@ -18,7 +18,7 @@ jobs:
           HOST=${{ secrets.FTP_HOST }}
           USER=${{ secrets.FTP_USER }}
           PASS=${{ secrets.FTP_PASSWORD }}
-          sftp -i $HOST << EOF
+          ftp -inv $HOST << EOF
           user $USER $PASS
           cd testftp
           mput *
