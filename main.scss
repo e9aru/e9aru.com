@@ -5,22 +5,45 @@ $text-size: 18px;
 $max-width: 480px;
 
 @keyframes blink {
-  0%, 100% { opacity: 1; }
-  50% {opacity: 0;}
+  0%,
+  100% {
+    opacity: 1;
+  }
+  50% {
+    opacity: 0;
+  }
 }
 
 @keyframes rainbow {
-  0%, 100% { color: hsl(120, 75%, 71%) }
-  33% { color: hsl(240, 75%, 71%) }
-  66% { color: hsl(360, 75%, 71%) }
+  0%,
+  100% {
+    color: hsl(120, 75%, 71%);
+  }
+  33% {
+    color: hsl(240, 75%, 71%);
+  }
+  66% {
+    color: hsl(360, 75%, 71%);
+  }
 }
 
-.fa-inverse { color: $color-bg }
-.fa-stack-1x { font-size: 1.1em }
+.fa-inverse {
+  color: $color-bg;
+}
+.fa-stack-1x {
+  font-size: 1.1em;
+}
 
-.gray { color: $color-text !important }
+.gray {
+  color: $color-text !important;
+}
 .clearfix {
-  &:after, &:before { content:''; float:none; display: block; }
+  &:after,
+  &:before {
+    content: "";
+    float: none;
+    display: block;
+  }
 }
 
 canvas {
@@ -36,20 +59,43 @@ code {
   //border-color: $color-text;
   background: mix($color-text, $color-bg, 40%);
   color: $color-bg;
-  padding: .1em .2em;
+  padding: 0.1em 0.2em;
   border-radius: 0;
 }
 
 body.finished {
-  h1, h2, .content a { animation: rainbow infinite 18s linear }
+  h1,
+  h2,
+  .content a {
+    animation: rainbow infinite 4s linear;
+  }
 }
 
-h1, .h1, h2, .h2, a { color: $color-text }
-h1, .h1 { text-transform: uppercase; font-size: 36px; }
-h2, .h2 { font-size: 22px }
-h1, h2, p { margin-bottom: 1.6em}
+h1,
+.h1,
+h2,
+.h2,
 a {
-  &:hover, &:focus, &:active {
+  color: $color-text;
+}
+h1,
+.h1 {
+  text-transform: uppercase;
+  font-size: 36px;
+}
+h2,
+.h2 {
+  font-size: 22px;
+}
+h1,
+h2,
+p {
+  margin-bottom: 1.6em;
+}
+a {
+  &:hover,
+  &:focus,
+  &:active {
     color: $color-text;
     text-decoration: none;
     color: #fff;
@@ -58,7 +104,7 @@ a {
 
 body {
   background-color: $color-bg;
-  letter-spacing: .02em;
+  letter-spacing: 0.02em;
   color: $color-text;
   padding-left: 1em;
   padding-right: 1em;
@@ -70,16 +116,23 @@ body {
     max-width: $max-width;
     margin: 0 auto;
 
-    article:not(:last-child){ margin: 0 auto 3em; }
+    article:not(:last-child) {
+      margin: 0 auto 3em;
+    }
     article {
       background: #111;
       border: #222 solid 4px;
       border-radius: 4px;
       position: relative;
 
-      h1, h2, p:last-child { margin: 0; }
+      h1,
+      h2,
+      p:last-child {
+        margin: 0;
+      }
 
-      header, .content {
+      header,
+      .content {
         padding: 1em;
         margin: 0;
       }
@@ -88,7 +141,8 @@ body {
         border-bottom: 2px solid #222;
         // box-shadow: inset 0 2px 3px #333;
 
-        h1>span, h2>span {
+        h1 > span,
+        h2 > span {
           position: relative;
           line-height: 36px;
 
@@ -112,7 +166,7 @@ body {
             }
 
             a {
-              font-size: $text-size * .75;
+              font-size: $text-size * 0.75;
               text-decoration: none;
               width: 2.6em;
               display: inline-block;
@@ -129,9 +183,13 @@ body {
         padding-left: 1em;
         left: 0;
         top: 95px;
-        @media(min-width: 480px) { top: 59px }
+        @media (min-width: 480px) {
+          top: 59px;
+        }
 
-        code { padding: 2px 6px }
+        code {
+          padding: 2px 6px;
+        }
       }
 
       .content {
@@ -144,19 +202,18 @@ body {
 
   #dynamic {
     &:after {
-      content: '|';
+      content: "|";
       animation: blink infinite 1s ease;
     }
   }
 }
-
 
 body.games {
   $h: 48px;
 
   padding-top: $h;
 
-  >h1 {
+  > h1 {
     line-height: $h;
     margin: 0;
     width: 100%;
@@ -171,12 +228,14 @@ body.games {
 
   article {
     .social {
-      @media(max-width: 479px) {
+      @media (max-width: 479px) {
         display: block;
         width: 100%;
       }
     }
-    .content { min-height: auto }
+    .content {
+      min-height: auto;
+    }
   }
 }
 
@@ -199,8 +258,13 @@ body.games {
   margin: 3em auto;
 }
 
-@media(max-width: 419px) {
+@media (max-width: 419px) {
   .social {
-    [title="Facebook"], [title="Github"], [title="Itch.io"], [title="Discord"] { display: none!important }
+    [title="Facebook"],
+    [title="Github"],
+    [title="Itch.io"],
+    [title="Discord"] {
+      display: none !important;
+    }
   }
 }

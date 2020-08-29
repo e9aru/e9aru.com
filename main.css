@@ -1,28 +1,39 @@
 @keyframes blink {
   0%, 100% {
-    opacity: 1; }
+    opacity: 1;
+  }
   50% {
-    opacity: 0; } }
+    opacity: 0;
+  }
+}
 @keyframes rainbow {
   0%, 100% {
-    color: #7eed7e; }
+    color: #7eed7e;
+  }
   33% {
-    color: #7e7eed; }
+    color: #7e7eed;
+  }
   66% {
-    color: #ed7e7e; } }
+    color: #ed7e7e;
+  }
+}
 .fa-inverse {
-  color: #000; }
+  color: #000;
+}
 
 .fa-stack-1x {
-  font-size: 1.1em; }
+  font-size: 1.1em;
+}
 
 .gray {
-  color: #999 !important; }
+  color: #999 !important;
+}
 
 .clearfix:after, .clearfix:before {
-  content: '';
+  content: "";
   float: none;
-  display: block; }
+  display: block;
+}
 
 canvas {
   display: block;
@@ -30,143 +41,198 @@ canvas {
   position: fixed;
   left: 0;
   top: 0;
-  z-index: 10; }
+  z-index: 10;
+}
 
 code {
   background: #3d3d3d;
   color: #000;
-  padding: .1em .2em;
-  border-radius: 0; }
+  padding: 0.1em 0.2em;
+  border-radius: 0;
+}
 
-body.finished h1, body.finished h2, body.finished .content a {
-  animation: rainbow infinite 18s linear; }
+body.finished h1,
+body.finished h2,
+body.finished .content a {
+  animation: rainbow infinite 4s linear;
+}
 
-h1, .h1, h2, .h2, a {
-  color: #999; }
+h1,
+.h1,
+h2,
+.h2,
+a {
+  color: #999;
+}
 
-h1, .h1 {
+h1,
+.h1 {
   text-transform: uppercase;
-  font-size: 36px; }
+  font-size: 36px;
+}
 
-h2, .h2 {
-  font-size: 22px; }
+h2,
+.h2 {
+  font-size: 22px;
+}
 
-h1, h2, p {
-  margin-bottom: 1.6em; }
+h1,
+h2,
+p {
+  margin-bottom: 1.6em;
+}
 
 a:hover, a:focus, a:active {
   color: #999;
   text-decoration: none;
-  color: #fff; }
+  color: #fff;
+}
 
 body {
   background-color: #000;
-  letter-spacing: .02em;
+  letter-spacing: 0.02em;
   color: #999;
   padding-left: 1em;
   padding-right: 1em;
-  font: 18px / 28.8px "Share Tech Mono"; }
-  body main {
-    height: 100vh;
-    width: 100%;
-    max-width: 480px;
-    margin: 0 auto; }
-    body main article:not(:last-child) {
-      margin: 0 auto 3em; }
-    body main article {
-      background: #111;
-      border: #222 solid 4px;
-      border-radius: 4px;
-      position: relative; }
-      body main article h1, body main article h2, body main article p:last-child {
-        margin: 0; }
-      body main article header, body main article .content {
-        padding: 1em;
-        margin: 0; }
-      body main article header {
-        border-bottom: 2px solid #222; }
-        body main article header h1 > span, body main article header h2 > span {
-          position: relative;
-          line-height: 36px; }
-          body main article header h1 > span.social, body main article header h2 > span.social {
-            float: right;
-            display: inline-block;
-            line-height: 0;
-            font-size: 0;
-            padding-top: 2px;
-            vertical-align: middle; }
-            body main article header h1 > span.social .sep, body main article header h2 > span.social .sep {
-              display: inline-block;
-              border-right: 1px solid #666;
-              margin: 0 8px;
-              height: 16px;
-              top: -3px;
-              right: -1px;
-              position: relative;
-              vertical-align: middle; }
-            body main article header h1 > span.social a, body main article header h2 > span.social a {
-              font-size: 13.5px;
-              text-decoration: none;
-              width: 2.6em;
-              display: inline-block; }
-      body main article .tags {
-        width: 100%;
-        position: absolute;
-        text-align: left;
-        font-size: 85%;
-        padding-left: 1em;
-        left: 0;
-        top: 95px; }
-        @media (min-width: 480px) {
-          body main article .tags {
-            top: 59px; } }
-        body main article .tags code {
-          padding: 2px 6px; }
-      body main article .content {
-        min-height: 260px;
-        position: relative;
-        overflow: hidden; }
-  body #dynamic:after {
-    content: '|';
-    animation: blink infinite 1s ease; }
+  font: 18px/28.8px "Share Tech Mono";
+}
+body main {
+  height: 100vh;
+  width: 100%;
+  max-width: 480px;
+  margin: 0 auto;
+}
+body main article:not(:last-child) {
+  margin: 0 auto 3em;
+}
+body main article {
+  background: #111;
+  border: #222 solid 4px;
+  border-radius: 4px;
+  position: relative;
+}
+body main article h1,
+body main article h2,
+body main article p:last-child {
+  margin: 0;
+}
+body main article header,
+body main article .content {
+  padding: 1em;
+  margin: 0;
+}
+body main article header {
+  border-bottom: 2px solid #222;
+}
+body main article header h1 > span,
+body main article header h2 > span {
+  position: relative;
+  line-height: 36px;
+}
+body main article header h1 > span.social,
+body main article header h2 > span.social {
+  float: right;
+  display: inline-block;
+  line-height: 0;
+  font-size: 0;
+  padding-top: 2px;
+  vertical-align: middle;
+}
+body main article header h1 > span.social .sep,
+body main article header h2 > span.social .sep {
+  display: inline-block;
+  border-right: 1px solid #666;
+  margin: 0 8px;
+  height: 16px;
+  top: -3px;
+  right: -1px;
+  position: relative;
+  vertical-align: middle;
+}
+body main article header h1 > span.social a,
+body main article header h2 > span.social a {
+  font-size: 13.5px;
+  text-decoration: none;
+  width: 2.6em;
+  display: inline-block;
+}
+body main article .tags {
+  width: 100%;
+  position: absolute;
+  text-align: left;
+  font-size: 85%;
+  padding-left: 1em;
+  left: 0;
+  top: 95px;
+}
+@media (min-width: 480px) {
+  body main article .tags {
+    top: 59px;
+  }
+}
+body main article .tags code {
+  padding: 2px 6px;
+}
+body main article .content {
+  min-height: 260px;
+  position: relative;
+  overflow: hidden;
+}
+body #dynamic:after {
+  content: "|";
+  animation: blink infinite 1s ease;
+}
 
 body.games {
-  padding-top: 48px; }
-  body.games > h1 {
-    line-height: 48px;
-    margin: 0;
-    width: 100%;
+  padding-top: 48px;
+}
+body.games > h1 {
+  line-height: 48px;
+  margin: 0;
+  width: 100%;
+  display: block;
+  text-align: center;
+  position: fixed;
+  top: 0;
+  left: 0;
+  background: #000;
+  z-index: 2;
+}
+@media (max-width: 479px) {
+  body.games article .social {
     display: block;
-    text-align: center;
-    position: fixed;
-    top: 0;
-    left: 0;
-    background: #000;
-    z-index: 2; }
-  @media (max-width: 479px) {
-    body.games article .social {
-      display: block;
-      width: 100%; } }
-  body.games article .content {
-    min-height: auto; }
+    width: 100%;
+  }
+}
+body.games article .content {
+  min-height: auto;
+}
 
 .venter {
   display: table;
   margin: 0 auto;
-  text-align: center; }
-  .venter .venterc {
-    display: table-cell;
-    vertical-align: middle;
-    margin: 0 auto;
-    text-align: left; }
+  text-align: center;
+}
+.venter .venterc {
+  display: table-cell;
+  vertical-align: middle;
+  margin: 0 auto;
+  text-align: left;
+}
 
 .back {
   text-align: center;
   font-size: 90%;
-  margin: 3em auto; }
+  margin: 3em auto;
+}
 
 @media (max-width: 419px) {
-  .social [title="Facebook"], .social [title="Github"], .social [title="Itch.io"], .social [title="Discord"] {
-    display: none !important; } }
+  .social [title=Facebook],
+.social [title=Github],
+.social [title="Itch.io"],
+.social [title=Discord] {
+    display: none !important;
+  }
+}
 
 /*# sourceMappingURL=main.css.map */

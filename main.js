@@ -12,7 +12,7 @@
 
     if (Date.now() - lc > de) {
       el.style.opacity = ".99";
-      el.innerHTML += tx[i] === "|" ? "<br>" : tx[i];
+      el.innerHTML += tx[i] === "|" ? "<br />" : tx[i];
       i++;
       lc = Date.now();
     }
@@ -23,9 +23,10 @@
   }
 
   function finish(el) {
+    let dmTxt = "DM me on Twitter";
     el.innerHTML = el.innerHTML.replace(
-      "Tweet me",
-      '<a href="https://twitter.com/e9aru" target="_blank" title="Twitter">Tweet me</a>'
+      dmTxt,
+      '<a href="https://twitter.com/e9aru" target="_blank">' + dmTxt + "</a>"
     );
     el.innerHTML = el.innerHTML.replace(
       "games",
@@ -33,7 +34,7 @@
     );
     el.innerHTML = el.innerHTML.replace(
       "Heroicode",
-      '<a href="http://heroicode.com" target="_blank" title="Heroicode">Heroicode</a>'
+      '<a href="http://heroicode.com" target="_blank">Heroicode</a>'
     );
 
     setTimeout(() => {
