@@ -1,8 +1,9 @@
 $color-active: hsl(0, 75%, 71%);
 $color-bg: #000;
 $color-text: #999;
-$text-size: 18px;
-$max-width: 480px;
+$text-size: 16px;
+$max-width: 520px;
+$font-family: "Share Tech Mono", monospace;
 
 @keyframes blink {
   0%,
@@ -102,13 +103,21 @@ a {
   }
 }
 
+html,
+body {
+  font: $text-size / #{1.6} $font-family;
+
+  @media (min-width: 576px) {
+    font-size: $text-size * 1.2;
+  }
+}
+
 body {
   background-color: $color-bg;
   letter-spacing: 0.02em;
   color: $color-text;
   padding-left: 1em;
   padding-right: 1em;
-  font: $text-size / #{$text-size * 1.6} "Share Tech Mono";
 
   main {
     height: 100vh;
@@ -193,7 +202,7 @@ body {
       }
 
       .content {
-        min-height: 260px;
+        min-height: 256px;
         position: relative;
         overflow: hidden;
       }

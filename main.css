@@ -88,18 +88,28 @@ a:hover, a:focus, a:active {
   color: #fff;
 }
 
+html,
+body {
+  font: 16px/1.6 "Share Tech Mono", monospace;
+}
+@media (min-width: 576px) {
+  html,
+body {
+    font-size: 19.2px;
+  }
+}
+
 body {
   background-color: #000;
   letter-spacing: 0.02em;
   color: #999;
   padding-left: 1em;
   padding-right: 1em;
-  font: 18px/28.8px "Share Tech Mono";
 }
 body main {
   height: 100vh;
   width: 100%;
-  max-width: 480px;
+  max-width: 520px;
   margin: 0 auto;
 }
 body main article:not(:last-child) {
@@ -151,7 +161,7 @@ body main article header h2 > span.social .sep {
 }
 body main article header h1 > span.social a,
 body main article header h2 > span.social a {
-  font-size: 13.5px;
+  font-size: 12px;
   text-decoration: none;
   width: 2.6em;
   display: inline-block;
@@ -174,7 +184,7 @@ body main article .tags code {
   padding: 2px 6px;
 }
 body main article .content {
-  min-height: 260px;
+  min-height: 256px;
   position: relative;
   overflow: hidden;
 }

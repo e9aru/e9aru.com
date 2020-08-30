@@ -8,14 +8,16 @@
   function draw(el, tx, i, de, cb) {
     if (i >= tx.length) return cb(el);
 
-    el.style.opacity = "1";
+    // el.style.opacity = "1";
 
     if (Date.now() - lc > de) {
-      el.style.opacity = ".99";
+      // el.style.opacity = ".99";
       el.innerHTML += tx[i] === "|" ? "<br />" : tx[i];
       i++;
       lc = Date.now();
     }
+
+    console.log(el.innerHTML);
 
     requestAnimationFrame(() => {
       draw(el, tx, i, de, cb);
@@ -29,10 +31,6 @@
       '<a href="https://twitter.com/e9aru" target="_blank">' + dmTxt + "</a>"
     );
     el.innerHTML = el.innerHTML.replace(
-      "games",
-      '<a href="/games" title="My games">games</a>'
-    );
-    el.innerHTML = el.innerHTML.replace(
       "Heroicode",
       '<a href="http://heroicode.com" target="_blank">Heroicode</a>'
     );
@@ -43,7 +41,7 @@
   }
 
   if ($dynamic) {
-    const text = "" + $dynamicRaw.textContent;
+    const text = "" + $dynamicRaw.textContent.replace(/ +(?= )/g, "").trim();
     const delay = 8;
     lc = Date.now();
 
@@ -51,7 +49,6 @@
     draw($dynamic, text, 0, delay, finish);
   }
 })();
-/*jshint ignore:start*/
 ((i, s, o, g, r, a, m) => {
   i["GoogleAnalyticsObject"] = r;
   (i[r] =
@@ -74,4 +71,3 @@
 
 ga("create", "UA-35010569-10", "auto");
 ga("send", "pageview");
-/*jshint ignore:end*/
