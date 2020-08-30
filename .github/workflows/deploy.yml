@@ -19,6 +19,7 @@ jobs:
           USER=${{ secrets.FTP_USER }}
           PASS=${{ secrets.FTP_PASSWORD }}
           ftp -inv $HOST << EOF
+          passive
           user $USER $PASS
           cd public_html
           mput *
