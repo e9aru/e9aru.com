@@ -1,4 +1,9 @@
 [[redirects]]
-  from = "https://*marzewski.pl"
+  from = "https://marzewski.pl"
+  to = "https://e9aru.com"
+  status = 301
+  
+[[redirects]]
+  from = "https://www.marzewski.pl"
   to = "https://e9aru.com"
   status = 301
