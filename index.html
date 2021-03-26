@@ -16,7 +16,7 @@
       body {
         font-size: 18px;
         font-family: "Courier New", Courier, monospace;
-        letter-spacing: 0.12em;
+        letter-spacing: 0.04em;
         line-height: 1.6;
         margin: 0;
         background: var(--light);
@@ -48,7 +48,7 @@
         justify-content: space-evenly;
         align-items: flex-start;
         position: relative;
-        padding: 40vh 1rem 0;
+        padding: 40vh 0 0;
         max-width: 640px;
         margin: 0 auto;
       }
@@ -61,6 +61,7 @@
       }
       article {
         border: 2px solid;
+        border-radius: 4px;
         padding: 1rem;
         max-width: 480px;
         margin: 0 auto;
@@ -72,13 +73,17 @@
       article > footer:before {
         content: attr(title);
         display: block;
-        background: var(--light);
-        color: var(--dark);
+        background: var(--dark);
+        color: var(--light);
         margin: 0 -1rem 0.75rem;
         padding: 0.1rem 0 0;
         font-weight: 900;
         text-transform: uppercase;
         line-height: 0.5;
+      }
+      [data-dark-mode] article > footer:before {
+        background: var(--light);
+        color: var(--dark);
       }
       p:last-child {
         margin-bottom: 0;
@@ -88,8 +93,9 @@
         font-size: 3rem;
       }
       code {
-        font-size: 75%;
-        letter-spacing: 0.05em;
+        font-size: 70%;
+        line-height: 1.4;
+        display: inline-block;
       }
       main > footer {
         text-align: center;
@@ -99,6 +105,7 @@
       #love {
         font-size: 175%;
         vertical-align: middle;
+        position: relative;
       }
       #bg {
         position: absolute;
@@ -112,7 +119,7 @@
         top: 0.5rem;
         right: 0.5rem;
         font-size: 1.2rem;
-        line-height: 1;
+        line-height: 0;
         width: 2em;
         height: 2em;
         background: transparent;
@@ -123,10 +130,10 @@
         z-index: 2;
       }
       #darkMode::after {
-        content: "☼";
+        content: "☾";
       }
       [data-dark-mode] #darkMode:after {
-        content: "☾";
+        content: "☼";
       }
     </style>
   </head>
@@ -153,7 +160,7 @@
         </footer>
       </article>
       <footer>
-        <strong id="love">♥</strong><br />
+        <strong id="love">❤</strong><br />
         <a target="_blank" href="https://github.com/e9aru/e9aru.com"
           >Check code on Github</a
         >
@@ -163,7 +170,6 @@
       "use strict"
       ;(() => {
         const loveRect = document.getElementById("love").getBoundingClientRect()
-        const dpr = window.devicePixelRatio || 1
         const dark = getComputedStyle(document.body)
           .getPropertyValue("--dark")
           .trim()
@@ -171,18 +177,20 @@
           .getPropertyValue("--light")
           .trim()
         const ctx = document.getElementById("bg").getContext("2d")
+        const drawTxt = () => {
+          ctx.clearRect(0, 0, ctx.w, ctx.h)
+          ctx.font = "normal 120px sans-serif"
+          ctx.fillStyle = isDarkMode() ? light : dark
+          ctx.textAlign = "center"
+          ctx.fillText("ꑀꁅꁲꌅꌈ", ctx.w / 2, ctx.h / 3.8)
+        }
         const initCtx = () => {
           Particle.pool.length = 0
 
-          ctx.w = ctx.canvas.width = ctx.canvas.clientWidth * dpr
-          ctx.h = ctx.canvas.height = ctx.canvas.clientHeight * dpr
+          ctx.w = ctx.canvas.width = ctx.canvas.clientWidth
+          ctx.h = ctx.canvas.height = ctx.canvas.clientHeight
 
-          ctx.clearRect(0, 0, ctx.w, ctx.h)
-          ctx.font = "normal 300 300px sans-serif"
-          ctx.fillStyle = "black"
-          ctx.textAlign = "center"
-          ctx.textBaseline = "middle"
-          ctx.fillText("ꑀꁅꁲꌅꌈ", ctx.w / 2, ctx.h / 4)
+          drawTxt()
 
           const data = ctx
             .getImageData(0, 0, ctx.w, ctx.h)
@@ -192,7 +200,6 @@
             if (!(idx % ~~(ctx.w / 100)) && v > 250)
               new Particle(null, null, ~~(idx % ctx.w), ~~(idx / ctx.w))
           })
-          // ctx.clearRect(0, 0, ctx.w, ctx.h)
 
           console.log("Spawned:", Particle.pool.length)
 
@@ -201,6 +208,7 @@
 
             if (document.hasFocus()) {
               ctx.clearRect(0, 0, ctx.w, ctx.h)
+              drawTxt()
               Particle.pool.forEach((p) => p.render())
             }
           }
@@ -224,9 +232,9 @@
             Particle.pool.push(this)
 
             this.wait = 110 + Math.random() * 190
-            this.s = 2 * dpr + Math.random() * 5
+            this.s = 2 + Math.random() * 4
             this.x = x || ctx.w / 2
-            this.y = y || (loveRect.y + loveRect.height / 2) * dpr
+            this.y = y || loveRect.y + loveRect.height / 2
             this._dx = dx || this.x
             this._dy = dy || this.y
             this.dx = Math.random() * ctx.w
@@ -253,7 +261,7 @@
 
             if (mag < 2) {
               const angle = Math.random() * Math.PI * 2
-              const radius = Math.random() * (2400 / this.s ** 3)
+              const radius = Math.random() * (400 / this.s ** 2)
               this.dx = this._dx + Math.cos(angle) * radius
               this.dy = this._dy + Math.sin(angle) * radius
             }
@@ -278,10 +286,6 @@
 
         // Event listeners
         window.addEventListener("resize", updateDOM)
-        // window.addEventListener("mousemove", (e) => {
-        //   const pixel = ctx.getImageData(e.clientX * dpr, e.clientY * dpr, 1, 1)
-        //   console.log(e.clientX, e.clientY, pixel.data)
-        // })
         document.getElementById("darkMode").addEventListener("click", () => {
           localStorage.setItem("darkMode", !isDarkMode())
           updateDOM(false)
