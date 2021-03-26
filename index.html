@@ -7,7 +7,7 @@
     <title>e9aru.com</title>
     <style>
       :root {
-        --dark: #222;
+        --dark: #111;
         --light: #eee;
       }
       * {
@@ -45,28 +45,50 @@
         height: 100vh;
         flex-direction: row;
         flex-wrap: wrap;
+        justify-content: space-evenly;
+        align-items: flex-start;
         position: relative;
+        padding: 40vh 1rem 0;
+        max-width: 640px;
+        margin: 0 auto;
       }
       main > * {
-        margin: auto;
         width: 100%;
       }
+      article {
+        border: 2px solid;
+        padding: 1rem;
+        max-width: 480px;
+        margin: 0 auto;
+      }
+      p:last-child {
+        margin-bottom: 0;
+      }
       h1 {
+        margin: 0 auto 1rem;
         font-size: 3rem;
       }
+      code {
+        font-size: 75%;
+        letter-spacing: 0.05em;
+      }
       footer {
-        margin-bottom: 0;
         text-align: center;
         line-height: 1;
         font-size: 0.8rem;
         padding: 0.5rem;
+        align-self: flex-end;
+      }
+      #love {
+        font-size: 175%;
+        vertical-align: middle;
       }
       #bg {
-        position: fixed;
+        position: absolute;
         left: 0;
         top: 0;
-        width: 100vw;
-        height: 100vh;
+        width: 100%;
+        height: 100%;
       }
       #darkMode {
         position: absolute;
@@ -92,15 +114,23 @@
     </style>
   </head>
   <body>
-    <canvas id="bg"></canvas>
     <button id="darkMode"></button>
     <main>
-      <h1>Hello</h1>
-      <p></p>
+      <canvas id="bg"></canvas>
+      <article>
+        <h1>Hello</h1>
+        <p>
+          Marcin, Software engineer<br />
+          <code>#videogames #webdev #indiegamedev #kaizen</code>
+        </p>
+        <p>
+          🎮 XSX PC PS4 Switch<br />
+          💪 caffeine junkie
+        </p>
+      </article>
       <footer>
-        Created with ❤<br /><a
-          target="_blank"
-          href="https://github.com/e9aru/e9aru.com"
+        <strong id="love">❤</strong><br />
+        <a target="_blank" href="https://github.com/e9aru/e9aru.com"
           >Check code on Github</a
         >
       </footer>
@@ -108,6 +138,7 @@
     <script>
       "use strict"
       // ;(() => {
+      const loveRect = document.getElementById("love").getBoundingClientRect()
       const dpr = window.devicePixelRatio || 1
       const dark = getComputedStyle(document.body)
         .getPropertyValue("--dark")
@@ -123,10 +154,11 @@
         ctx.h = ctx.canvas.height = ctx.canvas.clientHeight * dpr
 
         ctx.clearRect(0, 0, ctx.w, ctx.h)
-        ctx.font = "bold 240px sans-serif"
-        ctx.fillStyle = "red"
+        ctx.font = "300 18rem sans-serif"
+        ctx.fillStyle = "black"
         ctx.textAlign = "center"
-        ctx.fillText("ꑀꁅꁲꌅꌈ", ctx.w / 2, ctx.h / 2)
+        ctx.textBaseline = "middle"
+        ctx.fillText("ꑀꁅꁲꌅꌈ", ctx.w / 2, ctx.h / 4)
 
         const data = ctx
           .getImageData(0, 0, ctx.w, ctx.h)
@@ -168,17 +200,17 @@
           Particle.pool.push(this)
 
           this.wait = 110 + Math.random() * 190
-          this.x = x || Math.random() * ctx.w
-          this.y = y || Math.random() * ctx.h
+          this.s = 2 * dpr + Math.random() * 5
+          this.x = x || ctx.w / 2
+          this.y = y || (loveRect.y + loveRect.height / 2) * dpr
           this._dx = dx || this.x
           this._dy = dy || this.y
-          this.dx = this._dx
-          this.dy = this._dy
+          this.dx = Math.random() * ctx.w
+          this.dy = (Math.random() * ctx.h) / 2
           this.ax = 0
           this.ay = 0
           this.vx = 0
           this.vy = 0
-          this.s = 2 * dpr + Math.random() * 4
         }
 
         render() {
@@ -197,7 +229,7 @@
 
           if (mag < 2) {
             const angle = Math.random() * Math.PI * 2
-            const radius = Math.random() * (1500 / this.s ** 3)
+            const radius = Math.random() * (2400 / this.s ** 3)
             this.dx = this._dx + Math.cos(angle) * radius
             this.dy = this._dy + Math.sin(angle) * radius
           }
@@ -217,10 +249,10 @@
 
       // Event listeners
       window.addEventListener("resize", updateDOM)
-      // window.addEventListener("mousemove", (e) => {
-      //   const pixel = ctx.getImageData(e.clientX * dpr, e.clientY * dpr, 1, 1)
-      //   console.log(e.clientX, pixel.data)
-      // })
+      window.addEventListener("mousemove", (e) => {
+        const pixel = ctx.getImageData(e.clientX * dpr, e.clientY * dpr, 1, 1)
+        console.log(e.clientX, e.clientY, pixel.data)
+      })
       document.getElementById("darkMode").addEventListener("click", () => {
         localStorage.setItem("darkMode", !isDarkMode())
         updateDOM(false)
