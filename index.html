@@ -161,130 +161,135 @@
     </main>
     <script>
       "use strict"
-      // ;(() => {
-      const loveRect = document.getElementById("love").getBoundingClientRect()
-      const dpr = window.devicePixelRatio || 1
-      const dark = getComputedStyle(document.body)
-        .getPropertyValue("--dark")
-        .trim()
-      const light = getComputedStyle(document.body)
-        .getPropertyValue("--light")
-        .trim()
-      const ctx = document.getElementById("bg").getContext("2d")
-      const initCtx = () => {
-        Particle.pool.length = 0
+      ;(() => {
+        const loveRect = document.getElementById("love").getBoundingClientRect()
+        const dpr = window.devicePixelRatio || 1
+        const dark = getComputedStyle(document.body)
+          .getPropertyValue("--dark")
+          .trim()
+        const light = getComputedStyle(document.body)
+          .getPropertyValue("--light")
+          .trim()
+        const ctx = document.getElementById("bg").getContext("2d")
+        const initCtx = () => {
+          Particle.pool.length = 0
 
-        ctx.w = ctx.canvas.width = ctx.canvas.clientWidth * dpr
-        ctx.h = ctx.canvas.height = ctx.canvas.clientHeight * dpr
+          ctx.w = ctx.canvas.width = ctx.canvas.clientWidth * dpr
+          ctx.h = ctx.canvas.height = ctx.canvas.clientHeight * dpr
 
-        ctx.clearRect(0, 0, ctx.w, ctx.h)
-        ctx.font = "300 300px normal sans-serif"
-        ctx.fillStyle = "black"
-        ctx.textAlign = "center"
-        ctx.textBaseline = "middle"
-        ctx.fillText("ꑀꁅꁲꌅꌈ", ctx.w / 2, ctx.h / 4)
+          ctx.clearRect(0, 0, ctx.w, ctx.h)
+          ctx.font = "normal 300 300px sans-serif"
+          ctx.fillStyle = "black"
+          ctx.textAlign = "center"
+          ctx.textBaseline = "middle"
+          ctx.fillText("ꑀꁅꁲꌅꌈ", ctx.w / 2, ctx.h / 4)
 
-        const data = ctx
-          .getImageData(0, 0, ctx.w, ctx.h)
-          .data.filter((v, idx) => !((idx + 1) % 4))
+          const data = ctx
+            .getImageData(0, 0, ctx.w, ctx.h)
+            .data.filter((v, idx) => !((idx + 1) % 4))
 
-        data.forEach((v, idx) => {
-          if (!(idx % ~~(ctx.w / 100)) && v > 250)
-            new Particle(null, null, ~~(idx % ctx.w), ~~(idx / ctx.w))
-        })
-        // ctx.clearRect(0, 0, ctx.w, ctx.h)
+          data.forEach((v, idx) => {
+            if (!(idx % ~~(ctx.w / 100)) && v > 250)
+              new Particle(null, null, ~~(idx % ctx.w), ~~(idx / ctx.w))
+          })
+          // ctx.clearRect(0, 0, ctx.w, ctx.h)
 
-        console.log("Spawned:", Particle.pool.length)
+          console.log("Spawned:", Particle.pool.length)
 
-        const render = () => {
-          requestAnimationFrame(render)
+          const render = () => {
+            requestAnimationFrame(render)
 
-          if (document.hasFocus()) {
-            ctx.clearRect(0, 0, ctx.w, ctx.h)
-            Particle.pool.forEach((p) => p.render())
+            if (document.hasFocus()) {
+              ctx.clearRect(0, 0, ctx.w, ctx.h)
+              Particle.pool.forEach((p) => p.render())
+            }
           }
+
+          render()
         }
-
-        render()
-      }
-      const isDarkMode = () => localStorage.getItem("darkMode") === "true"
-      const updateDOM = (full = true) => {
-        document.body[isDarkMode() ? "setAttribute" : "removeAttribute"](
-          "data-dark-mode",
-          ""
-        )
-
-        full && initCtx()
-      }
-
-      class Particle {
-        static pool = []
-
-        constructor(x, y, dx, dy) {
-          Particle.pool.push(this)
-
-          this.wait = 110 + Math.random() * 190
-          this.s = 2 * dpr + Math.random() * 5
-          this.x = x || ctx.w / 2
-          this.y = y || (loveRect.y + loveRect.height / 2) * dpr
-          this._dx = dx || this.x
-          this._dy = dy || this.y
-          this.dx = Math.random() * ctx.w
-          this.dy = (Math.random() * ctx.h) / 2
-          this.ax = 0
-          this.ay = 0
-          this.vx = 0
-          this.vy = 0
-        }
-
-        render() {
-          const drag = 0.92 + Math.random() * 0.08
-          const mag = Math.min(
-            Math.abs(this.dx - this.x),
-            Math.abs(this.dy - this.y)
+        const isDarkMode = () => localStorage.getItem("darkMode") === "true"
+        const updateDOM = (full = true) => {
+          document.body[isDarkMode() ? "setAttribute" : "removeAttribute"](
+            "data-dark-mode",
+            ""
           )
 
-          this.wait--
-
-          if (this.wait < 0) {
-            this.ax = (this.dx - this.x) / 1000
-            this.ay = (this.dy - this.y) / 1000
-          }
-
-          if (mag < 2) {
-            const angle = Math.random() * Math.PI * 2
-            const radius = Math.random() * (2400 / this.s ** 3)
-            this.dx = this._dx + Math.cos(angle) * radius
-            this.dy = this._dy + Math.sin(angle) * radius
-          }
-
-          if (this.dx - this.x) this.vx += this.ax
-          this.vy += this.ay
-          this.vx *= drag
-          this.vy *= drag
-
-          this.x += this.vx
-          this.y += this.vy
-
-          ctx.fillStyle = isDarkMode() ? light : dark
-          ctx.fillRect(this.x - this.s / 2, this.y - this.s / 2, this.s, this.s)
+          full && initCtx()
         }
-      }
 
-      // Event listeners
-      window.addEventListener("resize", updateDOM)
-      window.addEventListener("mousemove", (e) => {
-        const pixel = ctx.getImageData(e.clientX * dpr, e.clientY * dpr, 1, 1)
-        console.log(e.clientX, e.clientY, pixel.data)
-      })
-      document.getElementById("darkMode").addEventListener("click", () => {
-        localStorage.setItem("darkMode", !isDarkMode())
-        updateDOM(false)
-      })
+        class Particle {
+          static pool = []
 
-      // Run
-      updateDOM()
-      // })()
+          constructor(x, y, dx, dy) {
+            Particle.pool.push(this)
+
+            this.wait = 110 + Math.random() * 190
+            this.s = 2 * dpr + Math.random() * 5
+            this.x = x || ctx.w / 2
+            this.y = y || (loveRect.y + loveRect.height / 2) * dpr
+            this._dx = dx || this.x
+            this._dy = dy || this.y
+            this.dx = Math.random() * ctx.w
+            this.dy = (Math.random() * ctx.h) / 2
+            this.ax = 0
+            this.ay = 0
+            this.vx = 0
+            this.vy = 0
+          }
+
+          render() {
+            const drag = 0.92 + Math.random() * 0.08
+            const mag = Math.min(
+              Math.abs(this.dx - this.x),
+              Math.abs(this.dy - this.y)
+            )
+
+            this.wait--
+
+            if (this.wait < 0) {
+              this.ax = (this.dx - this.x) / 1000
+              this.ay = (this.dy - this.y) / 1000
+            }
+
+            if (mag < 2) {
+              const angle = Math.random() * Math.PI * 2
+              const radius = Math.random() * (2400 / this.s ** 3)
+              this.dx = this._dx + Math.cos(angle) * radius
+              this.dy = this._dy + Math.sin(angle) * radius
+            }
+
+            if (this.dx - this.x) this.vx += this.ax
+            this.vy += this.ay
+            this.vx *= drag
+            this.vy *= drag
+
+            this.x += this.vx
+            this.y += this.vy
+
+            ctx.fillStyle = isDarkMode() ? light : dark
+            ctx.fillRect(
+              this.x - this.s / 2,
+              this.y - this.s / 2,
+              this.s,
+              this.s
+            )
+          }
+        }
+
+        // Event listeners
+        window.addEventListener("resize", updateDOM)
+        // window.addEventListener("mousemove", (e) => {
+        //   const pixel = ctx.getImageData(e.clientX * dpr, e.clientY * dpr, 1, 1)
+        //   console.log(e.clientX, e.clientY, pixel.data)
+        // })
+        document.getElementById("darkMode").addEventListener("click", () => {
+          localStorage.setItem("darkMode", !isDarkMode())
+          updateDOM(false)
+        })
+
+        // Run
+        updateDOM()
+      })()
     </script>
   </body>
 </html>
