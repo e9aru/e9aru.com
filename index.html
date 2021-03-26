@@ -55,11 +55,30 @@
       main > * {
         width: 100%;
       }
+      footer {
+        line-height: 1;
+        font-size: 0.8rem;
+      }
       article {
         border: 2px solid;
         padding: 1rem;
         max-width: 480px;
         margin: 0 auto;
+        position: relative;
+      }
+      article > footer {
+        text-align: center;
+      }
+      article > footer:before {
+        content: attr(title);
+        display: block;
+        background: var(--light);
+        color: var(--dark);
+        margin: 0 -1rem 0.75rem;
+        padding: 0.1rem 0 0;
+        font-weight: 900;
+        text-transform: uppercase;
+        line-height: 0.5;
       }
       p:last-child {
         margin-bottom: 0;
@@ -72,10 +91,8 @@
         font-size: 75%;
         letter-spacing: 0.05em;
       }
-      footer {
+      main > footer {
         text-align: center;
-        line-height: 1;
-        font-size: 0.8rem;
         padding: 0.5rem;
         align-self: flex-end;
       }
@@ -127,6 +144,13 @@
           🎮 XSX PC PS4 Switch<br />
           💪 caffeine junkie
         </p>
+        <footer title="social media">
+          <a href="https://twitter.com/e9aru/" target="_blank">twitter</a>
+          <a href="https://instagram.com/e9aru/" target="_blank">instagram</a>
+          <a href="https://gitbhub.com/e9aru/" target="_blank">github</a>
+          <a href="https://e9aru.itch.io/" target="_blank">itchio</a>
+          <a href="https://soundcloud.com/e9aru/" target="_blank">soundcloud</a>
+        </footer>
       </article>
       <footer>
         <strong id="love">❤</strong><br />
