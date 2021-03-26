@@ -2,135 +2,233 @@
 <html lang="en">
   <head>
     <meta charset="UTF-8" />
-    <meta name="author" content="Marcin Marzewski @e9aru" />
-    <meta
-      name="viewport"
-      content="width=device-width, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0, user-scalable=no, minimal-ui"
-    />
-    <link
-      href="https://fonts.googleapis.com/css2?family=Share+Tech+Mono&display=swap"
-      rel="stylesheet"
-      type="text/css"
-    />
-    <link
-      rel="stylesheet"
-      href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.6/css/bootstrap.min.css"
-      integrity="sha384-1q8mTJOASx8j1Au+a5WDVnPi2lkFfwwEAa8hDDdjZlpLegxhjVME1fgjWPGmkzs7"
-      crossorigin="anonymous"
-    />
-    <link
-      rel="stylesheet"
-      href="https://maxcdn.bootstrapcdn.com/font-awesome/4.6.1/css/font-awesome.min.css"
-    />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <title>e9aru.com</title>
-
-    <!--uncache(rename:false)-->
-    <link rel="stylesheet" href="main.css?v=113" />
-    <!--enduncache-->
-
-    <!--[if lt IE 9]>
-      <script src="https://oss.maxcdn.com/libs/html5shiv/3.7.0/html5shiv.js"></script>
-      <script src="https://oss.maxcdn.com/libs/respond.js/1.4.2/respond.min.js"></script>
-    <![endif]-->
+    <style>
+      :root {
+        --dark: #222;
+        --light: #eee;
+      }
+      * {
+        box-sizing: border-box;
+      }
+      body {
+        font-size: 18px;
+        font-family: "Courier New", Courier, monospace;
+        letter-spacing: 0.12em;
+        line-height: 1.6;
+        margin: 0;
+        background: var(--light);
+      }
+      body,
+      body * {
+        color: var(--dark);
+        border-color: var(--dark);
+      }
+      [data-dark-mode],
+      [data-dark-mode] * {
+        color: var(--light);
+        border-color: var(--light);
+      }
+      [data-dark-mode] {
+        background: var(--dark);
+      }
+      a {
+        text-decoration: none;
+        border-bottom: 1px dashed;
+      }
+      main {
+        background: none;
+        display: flex;
+        width: 100vw;
+        height: 100vh;
+        flex-direction: row;
+        flex-wrap: wrap;
+        position: relative;
+      }
+      main > * {
+        margin: auto;
+        width: 100%;
+      }
+      h1 {
+        font-size: 3rem;
+      }
+      footer {
+        margin-bottom: 0;
+        text-align: center;
+        line-height: 1;
+        font-size: 0.8rem;
+        padding: 0.5rem;
+      }
+      #bg {
+        position: fixed;
+        left: 0;
+        top: 0;
+        width: 100vw;
+        height: 100vh;
+      }
+      #darkMode {
+        position: absolute;
+        top: 0.5rem;
+        right: 0.5rem;
+        font-size: 1.2rem;
+        line-height: 1;
+        width: 2em;
+        height: 2em;
+        background: transparent;
+        border: 2px solid;
+        border-radius: 200%;
+        outline: none;
+        cursor: pointer;
+        z-index: 2;
+      }
+      #darkMode::after {
+        content: "☀";
+      }
+      [data-dark-mode] #darkMode:after {
+        content: "☾";
+      }
+    </style>
   </head>
-
   <body>
-    <main class="venter">
-      <div class="venterc">
-        <article>
-          <header>
-            <h1 class="clearfix">
-              <span>_hello</span>
-              <span class="social" class="pull-right">
-                <a
-                  href="https://twitter.com/e9aru"
-                  title="Twitter"
-                  target="_blank"
-                >
-                  <span class="fa-stack fa-lg">
-                    <!-- <i class="fa fa-square fa-stack-2x"></i> -->
-                    <!-- <i class="fa fa-twitter fa-stack-1x fa-inverse"></i> -->
-                    <i class="fa fa-twitter fa-stack-1x"></i>
-                  </span>
-                </a>
-                <a
-                  href="https://instagram.com/e9aru"
-                  title="Instagram"
-                  target="_blank"
-                >
-                  <span class="fa-stack fa-lg">
-                    <i class="fa fa-instagram fa-stack-1x"></i>
-                  </span>
-                </a>
-                <!--<a
-                  href="https://facebook.com/marcin.marzewski"
-                  title="Facebook"
-                  target="_blank"
-                >
-                  <span class="fa-stack fa-lg">
-                    <i class="fa fa-facebook fa-stack-1x"></i>
-                  </span>
-                </a>-->
-                <a
-                  href="https://github.com/e9aru"
-                  title="Github"
-                  target="_blank"
-                >
-                  <span class="fa-stack fa-lg">
-                    <i class="fa fa-github fa-stack-1x"></i>
-                  </span>
-                </a>
-                <a href="https://e9aru.itch.io" title="Itch.io" target="_blank">
-                  <span class="fa-stack fa-lg">
-                    <i class="fa fa-gamepad fa-stack-1x"></i>
-                  </span>
-                </a>
-                <a
-                  href="https://soundcloud.com/e9aru"
-                  title="Soundcloud"
-                  target="_blank"
-                >
-                  <span class="fa-stack fa-lg">
-                    <i class="fa fa-soundcloud fa-stack-1x"></i>
-                  </span>
-                </a>
-                <a href="mailto:hi@e9aru.com" title="Email">
-                  <span class="fa-stack fa-lg">
-                    <i class="fa fa-envelope fa-stack-1x"></i>
-                  </span>
-                </a>
-              </span>
-            </h1>
-          </header>
-          <div class="content">
-            <p id="dynamicRaw" aria-hidden="false" hidden>
-              Marcin here o/ I make websites and games, occasionally music in
-              FLS. ❤ to create things. protein monster. caffeine junkie.||Feel
-              free to DM me on Twitter|||-- e9aru
-            </p>
-            <p id="dynamic"></p>
-          </div>
-        </article>
-      </div>
+    <canvas id="bg"></canvas>
+    <button id="darkMode"></button>
+    <main>
+      <h1>Hello</h1>
+      <p></p>
+      <footer>
+        Created with ❤<br /><a
+          target="_blank"
+          href="https://github.com/e9aru/e9aru.com"
+          >Check code on Github</a
+        >
+      </footer>
     </main>
+    <script>
+      "use strict"
+      // ;(() => {
+      const dpr = window.devicePixelRatio || 1
+      const dark = getComputedStyle(document.body)
+        .getPropertyValue("--dark")
+        .trim()
+      const light = getComputedStyle(document.body)
+        .getPropertyValue("--light")
+        .trim()
+      const ctx = document.getElementById("bg").getContext("2d")
+      const initCtx = () => {
+        Particle.pool.length = 0
 
-    <script
-      type="text/javascript"
-      id="cookieinfo"
-      src="//cookieinfoscript.com/js/cookieinfo.min.js"
-      data-divlinkbg="#000"
-      data-divlink="#999"
-      data-bg="#000"
-      data-fg="#666"
-      data-link="#999"
-      data-cookie="CookieInfoScript"
-      data-text-align="left"
-      data-position="bottom"
-      data-font-size="13px"
-    ></script>
+        ctx.w = ctx.canvas.width = ctx.canvas.clientWidth * dpr
+        ctx.h = ctx.canvas.height = ctx.canvas.clientHeight * dpr
 
-    <script src="main.js?v=113"></script>
+        ctx.clearRect(0, 0, ctx.w, ctx.h)
+        ctx.font = "bold 240px sans-serif"
+        ctx.fillStyle = "red"
+        ctx.textAlign = "center"
+        ctx.fillText("ꑀꁅꁲꌅꌈ", ctx.w / 2, ctx.h / 2)
 
-    <script src="credits.js"></script>
+        const data = ctx
+          .getImageData(0, 0, ctx.w, ctx.h)
+          .data.filter((v, idx) => !((idx + 1) % 4))
+
+        data.forEach((v, idx) => {
+          if (!(idx % ~~(ctx.w / 100)) && v > 250)
+            new Particle(null, null, ~~(idx % ctx.w), ~~(idx / ctx.w))
+        })
+        // ctx.clearRect(0, 0, ctx.w, ctx.h)
+
+        console.log("Spawned:", Particle.pool.length)
+
+        const render = () => {
+          requestAnimationFrame(render)
+
+          if (document.hasFocus()) {
+            ctx.clearRect(0, 0, ctx.w, ctx.h)
+            Particle.pool.forEach((p) => p.render())
+          }
+        }
+
+        render()
+      }
+      const isDarkMode = () => localStorage.getItem("darkMode") === "true"
+      const updateDOM = (full = true) => {
+        document.body[isDarkMode() ? "setAttribute" : "removeAttribute"](
+          "data-dark-mode",
+          ""
+        )
+
+        full && initCtx()
+      }
+
+      class Particle {
+        static pool = []
+
+        constructor(x, y, dx, dy) {
+          Particle.pool.push(this)
+
+          this.wait = 110 + Math.random() * 190
+          this.x = x || Math.random() * ctx.w
+          this.y = y || Math.random() * ctx.h
+          this._dx = dx || this.x
+          this._dy = dy || this.y
+          this.dx = this._dx
+          this.dy = this._dy
+          this.ax = 0
+          this.ay = 0
+          this.vx = 0
+          this.vy = 0
+          this.s = 2 * dpr + Math.random() * 4
+        }
+
+        render() {
+          const drag = 0.92 + Math.random() * 0.08
+          const mag = Math.min(
+            Math.abs(this.dx - this.x),
+            Math.abs(this.dy - this.y)
+          )
+
+          this.wait--
+
+          if (this.wait < 0) {
+            this.ax = (this.dx - this.x) / 1000
+            this.ay = (this.dy - this.y) / 1000
+          }
+
+          if (mag < 2) {
+            const angle = Math.random() * Math.PI * 2
+            const radius = Math.random() * (1500 / this.s ** 3)
+            this.dx = this._dx + Math.cos(angle) * radius
+            this.dy = this._dy + Math.sin(angle) * radius
+          }
+
+          if (this.dx - this.x) this.vx += this.ax
+          this.vy += this.ay
+          this.vx *= drag
+          this.vy *= drag
+
+          this.x += this.vx
+          this.y += this.vy
+
+          ctx.fillStyle = isDarkMode() ? light : dark
+          ctx.fillRect(this.x - this.s / 2, this.y - this.s / 2, this.s, this.s)
+        }
+      }
+
+      // Event listeners
+      window.addEventListener("resize", updateDOM)
+      // window.addEventListener("mousemove", (e) => {
+      //   const pixel = ctx.getImageData(e.clientX * dpr, e.clientY * dpr, 1, 1)
+      //   console.log(e.clientX, pixel.data)
+      // })
+      document.getElementById("darkMode").addEventListener("click", () => {
+        localStorage.setItem("darkMode", !isDarkMode())
+        updateDOM(false)
+      })
+
+      // Run
+      updateDOM()
+      // })()
+    </script>
   </body>
 </html>
