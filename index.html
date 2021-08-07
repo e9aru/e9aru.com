@@ -5,296 +5,106 @@
     <meta http-equiv="X-UA-Compatible" content="IE=edge" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <title>e9aru.com</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link
+      href="https://fonts.googleapis.com/css2?family=Saira&family=Saira+Stencil+One&display=swap"
+      rel="stylesheet"
+    />
     <style>
-      :root {
-        --dark: #111;
-        --light: #eee;
-      }
       * {
         box-sizing: border-box;
+        padding: 0;
+      }
+      html {
+        font-size: 18px;
+        line-height: 1.5;
+        letter-spacing: 0.02em;
+        font-family: "Saira", sans-serif;
+        background: tomato;
+        color: white;
       }
       body {
-        font-size: 18px;
-        font-family: "Courier New", Courier, monospace;
-        letter-spacing: 0.04em;
-        line-height: 1.6;
         margin: 0;
-        background: var(--light);
+        width: 100%;
+        height: calc(var(--vh, 1vh) * 100);
+        display: flex;
+        flex-direction: column;
+        justify-content: center;
+        align-items: center;
       }
-      body,
-      body * {
-        color: var(--dark);
-        border-color: var(--dark);
+      h1,
+      h2,
+      code {
+        font-family: "Saira Stencil One", cursive;
+        line-height: 1;
+        letter-spacing: 0;
+        margin: 0;
       }
-      [data-dark-mode],
-      [data-dark-mode] * {
-        color: var(--light);
-        border-color: var(--light);
+      article {
+        width: 100%;
+        text-align: center;
       }
-      [data-dark-mode] {
-        background: var(--dark);
+      h1 {
+        font-size: 7rem;
+        width: 100%;
+        background: cyan;
+        color: black;
+      }
+      h2 {
+        font-size: 2rem;
+      }
+      code {
+        font-size: 0.8rem;
+        background: rgba(0, 0, 0, 0.2);
+        border-radius: 4px;
+        padding: 0 0.25rem;
+        color: black;
       }
       a {
         text-decoration: none;
-        border-bottom: 1px dashed;
+        color: cyan;
       }
-      main {
-        background: none;
-        display: flex;
-        width: 100vw;
-        height: 100vh;
-        flex-direction: row;
-        flex-wrap: wrap;
-        justify-content: space-evenly;
-        align-items: flex-start;
-        position: relative;
-        padding: 40vh 0 0;
-        max-width: 640px;
-        margin: 0 auto;
+      body > article {
+        margin: auto;
       }
-      main > * {
-        width: 100%;
-        z-index: 1;
-      }
-      footer {
-        line-height: 1;
-        font-size: 0.8rem;
-      }
-      article {
-        border: 2px solid;
-        border-radius: 4px;
-        padding: 1rem;
-        max-width: 480px;
-        margin: 0 auto;
-      }
-      article > footer {
-        text-align: center;
-      }
-      article > footer:before {
-        content: attr(title);
-        display: block;
-        background: var(--dark);
-        color: var(--light);
-        margin: 0 -1rem 0.75rem;
-        padding: 0.1rem 0 0;
-        font-weight: 900;
-        text-transform: uppercase;
-        line-height: 0.5;
-      }
-      [data-dark-mode] article > footer:before {
-        background: var(--light);
-        color: var(--dark);
-      }
-      p:last-child {
-        margin-bottom: 0;
-      }
-      h1 {
-        margin: 0 auto 1rem;
-        font-size: 3rem;
-      }
-      code {
-        font-size: 70%;
-        line-height: 1.4;
-        display: inline-block;
-      }
-      main > footer {
-        text-align: center;
-        padding: 0.5rem;
-        align-self: flex-end;
-      }
-      #love {
-        font-size: 175%;
-        vertical-align: middle;
-        position: relative;
-      }
-      #bg {
-        position: absolute;
-        left: 0;
-        top: 0;
-        width: 100%;
-        height: 100%;
-        z-index: 0;
-      }
-      #darkMode {
-        position: absolute;
-        top: 0.5rem;
-        right: 0.5rem;
-        font-size: 1.2rem;
-        line-height: 0;
-        width: 2em;
-        height: 2em;
-        background: transparent;
-        border: 2px solid;
-        border-radius: 200%;
-        outline: none;
-        cursor: pointer;
-        z-index: 2;
-      }
-      #darkMode::after {
-        content: "☾";
-      }
-      [data-dark-mode] #darkMode:after {
-        content: "☼";
+      body > footer {
+        margin: 0;
       }
     </style>
   </head>
   <body>
-    <button id="darkMode"></button>
-    <main>
-      <canvas id="bg"></canvas>
-      <article>
-        <h1>Hello</h1>
-        <p>
-          Marcin, Software engineer<br />
-          <code>#videogames #webdev #indiegamedev #kaizen</code>
-        </p>
-        <p>
-          🎮 XSX PC PS4 Switch<br />
-          💪 caffeine junkie
-        </p>
-        <footer title="social media">
-          <a href="https://twitter.com/e9aru/" target="_blank">twitter</a>
-          <a href="https://instagram.com/e9aru/" target="_blank">instagram</a>
-          <a href="https://gitbhub.com/e9aru/" target="_blank">github</a>
-          <a href="https://e9aru.itch.io/" target="_blank">itchio</a>
-          <a href="https://soundcloud.com/e9aru/" target="_blank">soundcloud</a>
-        </footer>
-      </article>
-      <footer>
-        <strong id="love">❤</strong><br />
-        <a target="_blank" href="https://github.com/e9aru/e9aru.com"
-          >Check code on Github</a
-        >
+    <article>
+      <h1>Hello</h1>
+      <p>
+        Marcin, Software engineer<br />
+        <code>#videogames</code>
+        <code>#webdev</code>
+        <code>#indiegamedev</code>
+        <code>#kaizen</code>
+      </p>
+      <p>
+        🎮 XSX PC PS4 Switch<br />
+        💪 caffeine junkie
+      </p>
+      <footer title="social media">
+        <a href="https://twitter.com/e9aru/" target="_blank">twitter</a>
+        <a href="https://instagram.com/e9aru/" target="_blank">instagram</a>
+        <a href="https://gitbhub.com/e9aru/" target="_blank">github</a>
+        <a href="https://e9aru.itch.io/" target="_blank">itchio</a>
+        <a href="https://soundcloud.com/e9aru/" target="_blank">soundcloud</a>
       </footer>
-    </main>
+    </article>
+    <footer>
+      <a target="_blank" href="https://github.com/e9aru/e9aru.com"
+        >Check code on Github</a
+      >
+    </footer>
     <script>
-      "use strict"
-      ;(() => {
-        const loveRect = document.getElementById("love").getBoundingClientRect()
-        const dark = getComputedStyle(document.body)
-          .getPropertyValue("--dark")
-          .trim()
-        const light = getComputedStyle(document.body)
-          .getPropertyValue("--light")
-          .trim()
-        const ctx = document.getElementById("bg").getContext("2d")
-        const drawTxt = () => {
-          ctx.clearRect(0, 0, ctx.w, ctx.h)
-          ctx.font = "normal 120px sans-serif"
-          ctx.fillStyle = isDarkMode() ? light : dark
-          ctx.textAlign = "center"
-          ctx.fillText("ꑀꁅꁲꌅꌈ", ctx.w / 2, ctx.h / 3.8)
-        }
-        const initCtx = () => {
-          Particle.pool.length = 0
-
-          ctx.w = ctx.canvas.width = ctx.canvas.clientWidth
-          ctx.h = ctx.canvas.height = ctx.canvas.clientHeight
-
-          drawTxt()
-
-          const data = ctx
-            .getImageData(0, 0, ctx.w, ctx.h)
-            .data.filter((v, idx) => !((idx + 1) % 4))
-
-          data.forEach((v, idx) => {
-            if (!(idx % ~~(ctx.w / 100)) && v > 250)
-              new Particle(null, null, ~~(idx % ctx.w), ~~(idx / ctx.w))
-          })
-
-          console.log("Spawned:", Particle.pool.length)
-
-          const render = () => {
-            requestAnimationFrame(render)
-
-            if (document.hasFocus()) {
-              ctx.clearRect(0, 0, ctx.w, ctx.h)
-              drawTxt()
-              Particle.pool.forEach((p) => p.render())
-            }
-          }
-
-          render()
-        }
-        const isDarkMode = () => localStorage.getItem("darkMode") === "true"
-        const updateDOM = (full = true) => {
-          document.body[isDarkMode() ? "setAttribute" : "removeAttribute"](
-            "data-dark-mode",
-            ""
-          )
-
-          full && initCtx()
-        }
-
-        class Particle {
-          static pool = []
-
-          constructor(x, y, dx, dy) {
-            Particle.pool.push(this)
-
-            this.wait = 110 + Math.random() * 190
-            this.s = 2 + Math.random() * 4
-            this.x = x || ctx.w / 2
-            this.y = y || loveRect.y + loveRect.height / 2
-            this._dx = dx || this.x
-            this._dy = dy || this.y
-            this.dx = Math.random() * ctx.w
-            this.dy = (Math.random() * ctx.h) / 2
-            this.ax = 0
-            this.ay = 0
-            this.vx = 0
-            this.vy = 0
-          }
-
-          render() {
-            const drag = 0.92 + Math.random() * 0.08
-            const mag = Math.min(
-              Math.abs(this.dx - this.x),
-              Math.abs(this.dy - this.y)
-            )
-
-            this.wait--
-
-            if (this.wait < 0) {
-              this.ax = (this.dx - this.x) / 1000
-              this.ay = (this.dy - this.y) / 1000
-            }
-
-            if (mag < 2) {
-              const angle = Math.random() * Math.PI * 2
-              const radius = Math.random() * (400 / this.s ** 2)
-              this.dx = this._dx + Math.cos(angle) * radius
-              this.dy = this._dy + Math.sin(angle) * radius
-            }
-
-            if (this.dx - this.x) this.vx += this.ax
-            this.vy += this.ay
-            this.vx *= drag
-            this.vy *= drag
-
-            this.x += this.vx
-            this.y += this.vy
-
-            ctx.fillStyle = isDarkMode() ? light : dark
-            ctx.fillRect(
-              this.x - this.s / 2,
-              this.y - this.s / 2,
-              this.s,
-              this.s
-            )
-          }
-        }
-
-        // Event listeners
-        window.addEventListener("resize", updateDOM)
-        document.getElementById("darkMode").addEventListener("click", () => {
-          localStorage.setItem("darkMode", !isDarkMode())
-          updateDOM(false)
-        })
-
-        // Run
-        updateDOM()
-      })()
+      document.documentElement.style.setProperty(
+        "--vh",
+        `${window.innerHeight * 0.01}px`
+      )
     </script>
   </body>
 </html>
