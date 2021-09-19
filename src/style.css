@@ -13,6 +13,10 @@ html {
 body {
   margin: 0;
   height: calc(var(--vh, 1vh) * 100);
+  display: flex;
+  align-items: center;
+  flex-direction: column;
+  width: 100%;
 }
 a {
   color: whitesmoke;
@@ -20,21 +24,31 @@ a {
   display: inline-block;
 }
 canvas {
-  position: fixed;
-  left: 50%;
-  transform: translateX(-50%);
+  margin: 0 auto;
+}
+#followme {
+  letter-spacing: 0.4em;
+  margin: auto;
 }
 nav {
-  position: relative;
+  position: fixed;
+  left: 0;
+  top: 0;
+  z-index: 8;
   display: flex;
   flex-direction: column;
   width: 100%;
   height: 100%;
   margin: 0 auto;
+  transition: ease 0.2s;
+  transform: translateX(100%);
+}
+nav[aria-pressed] {
+  transform: translateX(0);
 }
 nav a {
   background-color: var(--bg);
-  color: whitesmoke;
+  color: white;
   display: flex;
   flex: 1 1 0;
   justify-content: center;
@@ -46,6 +60,9 @@ nav a {
   position: relative;
   transition: ease 0.2s;
 }
+nav a:last-child {
+  color: black;
+}
 nav a::after,
 nav a::before {
   content: "";
@@ -53,13 +70,13 @@ nav a::before {
   position: absolute;
   width: 100%;
   height: 2px;
-  top: 46%;
+  top: 45%;
   background-color: var(--bg);
   transition: transform ease-out 0.4s, opacity ease-in 0.4s;
   z-index: 2;
 }
 nav a::after {
-  top: 53%;
+  top: 52%;
 }
 nav a:hover,
 nav a:focus {
@@ -84,4 +101,13 @@ footer {
   bottom: 0;
   width: 100%;
   text-align: center;
+  left: 0;
+  width: 160px;
+  padding: 0.2rem 45px;
+  background: black;
+  transform: translate(-40px, -20px) rotate(45deg);
+  font-size: 0.6rem;
+  line-height: 1.2;
+  z-index: 9;
+  border: 1px solid white;
 }
