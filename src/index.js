@@ -1,5 +1,8 @@
 import * as PIXI from "pixi.js"
+import "@pixi/math-extras"
 import "./style.css"
+
+window.PIXI = PIXI
 
 // include the web-font loader script
 /* eslint-disable */
@@ -25,8 +28,13 @@ window.WebFontConfig = {
   },
 }
 
-const copy =
-  "Hi o/\nMarcin here. I'm a software engineer and caffeine junkie.\n<3 making stuff :D\n\n#webdev #gamedev #kaizen"
+const copy = `
+Hi, Marcin here!
+Software engineer
+Caffeine junkie XD
+
+#webdev #gamedev #kaizen`
+
 const closeNav = "nope :v"
 const socials = {
   twitter: ["#1da1f2"],
@@ -114,7 +122,7 @@ const initPIXI = () => {
   class Particle extends PIXI.Sprite {
     static graphics
     static texture
-    static maxSpeed = 4
+    static maxSpeed = 2
 
     static setup() {
       Particle.graphics = new PIXI.Graphics()
@@ -126,46 +134,51 @@ const initPIXI = () => {
     constructor(x, y) {
       super(app.renderer.generateTexture(Particle.graphics))
 
-      // this.velocity = new PIXI.Point()
-      // this.destination = new PIXI.Point(x, y)
-      this.x = x
-      this.y = y
+      this.position = new PIXI.Point(Math.random() * w, Math.random() * h)
+      this.velocity = new PIXI.Point()
+      this.destination = new PIXI.Point(x, y)
+      this.direction = new PIXI.Point()
+      this.tint = 0xffffff * Math.random()
+      this.alpha = 1
       this.anchor.set(0.5)
+      this.alive = true
+
+      app.ticker.add(this.update.bind(this))
+    }
+
+    die() {
+      // this.alpha = 0
+      // this.tint = 0xff0000 * Math.random()
+      this.alive = false
     }
 
     update() {
-      return
+      if (!this.alive) return
 
-      this.distance = Math.sqrt(
-        (this.destination.x - this.x) ** 2 + (this.destination.y - this.y) ** 2
+      if (this.distance < 0.1 && this.velocity.magnitude() < 0.08) this.die()
+
+      this.distance = Math.hypot(
+        this.destination.x - this.position.x,
+        this.destination.y - this.position.y
       )
 
-      // if (this.distance <= 1 && this.velocity.x < 1 && this.velocity.y < 1) return
+      this.direction = this.destination.subtract(this.position).normalize()
+      this.velocity = this.velocity.add(this.direction.multiplyScalar(0.06))
 
-      this.velocity.x = Math.max(
-        -Particle.maxSpeed,
-        Math.min(Particle.maxSpeed, (this.destination.x - this.x) * 0.5)
-      )
+      this.velocity = this.velocity.multiplyScalar(0.98)
+      this.position = this.position.add(this.velocity)
 
-      this.velocity.y = Math.max(
-        -Particle.maxSpeed,
-        Math.min(Particle.maxSpeed, (this.destination.y - this.y) * 0.5)
-      )
-
-      this.x += this.velocity.x
-      this.y += this.velocity.y
-
-      this.velocity.x *= 0.98
-      this.velocity.y *= 0.98
+      this.x = this.position.x
+      this.y = this.position.y
     }
   }
   Particle.setup()
 
-  const pool = new PIXI.ParticleContainer(1)
+  const pool = (window.pool = new PIXI.ParticleContainer(8192))
 
   const text = new PIXI.Text(copy, {
     fontFamily: "Saira",
-    fontSize: 48,
+    fontSize: 46,
     fontWeight: 900,
     fill: 0x666666,
     align: "center",
@@ -180,6 +193,7 @@ const initPIXI = () => {
 
   app.stage.addChild(text)
   app.stage.addChild(pool)
+  app.spawnPosition = new PIXI.Point()
 
   const tmpCanvas = app.renderer.plugins.extract.canvas(app.stage)
   const imageData = tmpCanvas.getContext("2d").getImageData(0, 0, w, h)
@@ -188,18 +202,15 @@ const initPIXI = () => {
 
   // app.stage.removeChild(text)
 
-  let sprite, graphics
-
-  for (let y = 0; y < h; y += 10) {
-    for (let x = 0; x < w; x += 10) {
+  for (let y = 0; y < h; y += 4) {
+    for (let x = 0; x < w; x += 4) {
       if (imageData.data[(y * imageData.width + x) * 4 + 3] > 128) {
         pool.addChild(new Particle(x + widthDiff, y + heightDiff))
       }
     }
   }
 
-  // app.ticker.add(() => pool.children.forEach((p) => p.update()))
-  console.log(pool.children.length)
+  console.log(`${Math.min(pool.children.length, pool._maxSize)} particles`)
 }
 
 const init = () => {

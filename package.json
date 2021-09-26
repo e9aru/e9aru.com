@@ -19,6 +19,7 @@
   },
   "homepage": "https://github.com/e9aru/e9aru.com#readme",
   "dependencies": {
+    "@pixi/math-extras": "^6.1.3",
     "node-fetch": "^2.6.1",
     "pixi.js": "^6.1.2"
   },
