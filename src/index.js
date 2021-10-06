@@ -48,7 +48,7 @@ const socials = {
 }
 socials[closeNav] = ["white"]
 
-const setupDOM = () => {
+const setupDOM = (ticker) => {
   // Nav
   const nav = document.createElement("nav")
 
@@ -71,6 +71,7 @@ const setupDOM = () => {
       a.addEventListener("click", (event) => {
         event.preventDefault()
         nav.toggleAttribute("aria-pressed")
+        ticker.start()
       })
     }
   })
@@ -94,6 +95,7 @@ const setupDOM = () => {
   followMe.addEventListener("click", (event) => {
     event.preventDefault()
     nav.toggleAttribute("aria-pressed")
+    ticker.stop()
   })
   document.body.appendChild(followMe)
 
@@ -229,10 +231,11 @@ const initPIXI = () => {
   }
 
   spawn()
+
+  return app.ticker
 }
 
 const init = () => {
-  initPIXI()
-  setupDOM()
+  setupDOM(initPIXI())
   // initTwitter()
 }
