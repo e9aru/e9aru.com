@@ -33,7 +33,9 @@ Hi, Marcin here!
 Software engineer
 Caffeine junkie XD
 
-#webdev #gamedev #kaizen`
+#webdev
+#gamedev
+#kaizen`
 
 const closeNav = "nope :v"
 const socials = {
@@ -122,40 +124,43 @@ const initPIXI = () => {
   class Particle extends PIXI.Sprite {
     static graphics
     static texture
-    static maxSpeed = 2
 
     static setup() {
       Particle.graphics = new PIXI.Graphics()
       Particle.graphics.beginFill(0xffffff)
-      Particle.graphics.drawCircle(0, 0, 1)
+      Particle.graphics.drawCircle(0, 0, 2)
       Particle.graphics.endFill()
     }
 
-    constructor(x, y) {
+    constructor(x, y, idx = 0) {
       super(app.renderer.generateTexture(Particle.graphics))
 
       this.position = new PIXI.Point(Math.random() * w, Math.random() * h)
       this.velocity = new PIXI.Point()
       this.destination = new PIXI.Point(x, y)
       this.direction = new PIXI.Point()
-      this.tint = 0xffffff * Math.random()
+      this.tint = 0xffffff
       this.alpha = 1
       this.anchor.set(0.5)
-      this.alive = true
+      this.alive = false
 
       app.ticker.add(this.update.bind(this))
     }
 
     die() {
-      // this.alpha = 0
-      // this.tint = 0xff0000 * Math.random()
       this.alive = false
+      return this
+    }
+
+    live() {
+      this.alive = true
+      return this
     }
 
     update() {
       if (!this.alive) return
 
-      if (this.distance < 0.1 && this.velocity.magnitude() < 0.08) this.die()
+      // if (this.distance < 0.1 && this.velocity.magnitude() < 0.08) this.die()
 
       this.distance = Math.hypot(
         this.destination.x - this.position.x,
@@ -163,22 +168,28 @@ const initPIXI = () => {
       )
 
       this.direction = this.destination.subtract(this.position).normalize()
-      this.velocity = this.velocity.add(this.direction.multiplyScalar(0.06))
+      this.velocity = this.velocity.add(this.direction.multiplyScalar(0.4))
 
-      this.velocity = this.velocity.multiplyScalar(0.98)
+      this.velocity = this.velocity.multiplyScalar(0.94)
       this.position = this.position.add(this.velocity)
 
       this.x = this.position.x
       this.y = this.position.y
+
+      this.tint = PIXI.utils.rgb2hex([
+        1 - Math.min(1, this.velocity.magnitude() * 0.18),
+        1,
+        1,
+      ])
     }
   }
   Particle.setup()
 
-  const pool = (window.pool = new PIXI.ParticleContainer(8192))
+  const pool = (window.pool = [])
 
   const text = new PIXI.Text(copy, {
     fontFamily: "Saira",
-    fontSize: 46,
+    fontSize: 42,
     fontWeight: 900,
     fill: 0x666666,
     align: "center",
@@ -192,7 +203,6 @@ const initPIXI = () => {
   document.body.appendChild(app.view)
 
   app.stage.addChild(text)
-  app.stage.addChild(pool)
   app.spawnPosition = new PIXI.Point()
 
   const tmpCanvas = app.renderer.plugins.extract.canvas(app.stage)
@@ -200,17 +210,25 @@ const initPIXI = () => {
   const widthDiff = (w - tmpCanvas.width) / 2
   const heightDiff = (h - tmpCanvas.height) / 2
 
-  // app.stage.removeChild(text)
-
-  for (let y = 0; y < h; y += 4) {
-    for (let x = 0; x < w; x += 4) {
+  for (let y = 0; y < h; y += 3) {
+    for (let x = 0; x < w; x += 3) {
       if (imageData.data[(y * imageData.width + x) * 4 + 3] > 128) {
-        pool.addChild(new Particle(x + widthDiff, y + heightDiff))
+        pool.push(new Particle(x + widthDiff, y + heightDiff, pool.length))
       }
     }
   }
 
-  console.log(`${Math.min(pool.children.length, pool._maxSize)} particles`)
+  console.log(`${Math.min(pool.length)} particles`)
+
+  const spawn = (idx = 0) => {
+    for (let i = 0; i < 8; i++) {
+      pool[idx + i] && app.stage.addChild(pool[idx + i].live())
+    }
+
+    if (idx < pool.length) requestAnimationFrame(() => spawn(idx + 8))
+  }
+
+  spawn()
 }
 
 const init = () => {
