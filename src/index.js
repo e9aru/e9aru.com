@@ -20,7 +20,7 @@ window.PIXI = PIXI
 
 window.WebFontConfig = {
   google: {
-    families: ["Saira:400,900"],
+    families: ["Saira:200,400,900"],
   },
 
   active() {
@@ -33,8 +33,6 @@ Hi, Marcin here!
 Software engineer
 Caffeine junkie XD
 
-#webdev
-#gamedev
 #kaizen`
 
 const closeNav = "nope :v"
@@ -130,7 +128,7 @@ const initPIXI = () => {
     static setup() {
       Particle.graphics = new PIXI.Graphics()
       Particle.graphics.beginFill(0xffffff)
-      Particle.graphics.drawCircle(0, 0, 2)
+      Particle.graphics.drawCircle(0, 0, 1)
       Particle.graphics.endFill()
     }
 
@@ -191,8 +189,8 @@ const initPIXI = () => {
 
   const text = new PIXI.Text(copy, {
     fontFamily: "Saira",
-    fontSize: 42,
-    fontWeight: 900,
+    fontSize: 36,
+    fontWeight: 400,
     fill: 0x666666,
     align: "center",
     wordWrap: true,
@@ -212,9 +210,9 @@ const initPIXI = () => {
   const widthDiff = (w - tmpCanvas.width) / 2
   const heightDiff = (h - tmpCanvas.height) / 2
 
-  for (let y = 0; y < h; y += 3) {
-    for (let x = 0; x < w; x += 3) {
-      if (imageData.data[(y * imageData.width + x) * 4 + 3] > 128) {
+  for (let y = 0; y < h; y += 2) {
+    for (let x = 0; x < w; x += 2) {
+      if (imageData.data[(y * imageData.width + x) * 4 + 3] > 96) {
         pool.push(new Particle(x + widthDiff, y + heightDiff, pool.length))
       }
     }
