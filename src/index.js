@@ -137,7 +137,7 @@ const initPIXI = () => {
 
       this.position = new PIXI.Point(Math.random() * w, Math.random() * h)
       this.velocity = new PIXI.Point()
-      this.destination = new PIXI.Point(x, y)
+      this.destination = this._destination = new PIXI.Point(x, y)
       this.direction = new PIXI.Point()
       this.tint = 0xffffff
       this.alpha = 1
@@ -160,7 +160,10 @@ const initPIXI = () => {
     update() {
       if (!this.alive) return
 
-      // if (this.distance < 0.1 && this.velocity.magnitude() < 0.08) this.die()
+      if (this.distance < 1 && this.velocity.magnitude() < 6) {
+        this.destination = this._destination
+        // this.die()
+      }
 
       this.distance = Math.hypot(
         this.destination.x - this.position.x,
@@ -229,6 +232,18 @@ const initPIXI = () => {
   }
 
   spawn()
+
+  const attractToPointer = (event, amount = Math.min(pool.length, 48)) => {
+    const index = ~~(Math.random() * (pool.length - amount))
+    const particles = pool.slice(index, index + amount)
+    const destination = new PIXI.Point(event.data.global.x, event.data.global.y)
+
+    particles.forEach((particle) => (particle.destination = destination))
+  }
+
+  app.stage.hitArea = new PIXI.Rectangle(0, 0, w, h)
+  app.stage.interactive = true
+  app.stage.on("pointerup", attractToPointer)
 
   return app.ticker
 }

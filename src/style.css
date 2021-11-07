@@ -25,6 +25,7 @@ a {
 }
 canvas {
   margin: 0 auto;
+  cursor: cell !important;
 }
 #followme {
   letter-spacing: 0.4em;
